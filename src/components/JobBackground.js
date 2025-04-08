@@ -1,5 +1,4 @@
 import React from 'react';
-  // Import custom CSS for styling
 
 const JobBackground = () => {
   return (

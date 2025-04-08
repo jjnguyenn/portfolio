@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaLinkedin } from "react-icons/fa";
 
 
 const Contact = () => {
@@ -10,25 +11,52 @@ const Contact = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  
+    // Allow only letters and spaces for the name field
+    if (name === "name") {
+      const lettersOnly = value.replace(/[^a-zA-Z\s]/g, "");
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: lettersOnly,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
-
+  const [statusMessage, setStatusMessage] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Form Submitted!"); // You can handle this with backend or email service
+    setStatusMessage("Message sent successfully!");
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
+    setTimeout(() => {
+      setStatusMessage(""); 
+    }, 5000);
+  
+
   };
 
+
   return (
+    <>
+     {statusMessage && (
+        <div className="notification-banner">
+          <p>{statusMessage}</p>
+        </div>
+      )}
     <section id="contact">
       <h2>Contact Me</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
-          placeholder="Your Name"
+          placeholder="Name"
           value={formData.name}
           onChange={handleChange}
           required
@@ -36,7 +64,7 @@ const Contact = () => {
         <input
           type="email"
           name="email"
-          placeholder="Your Email"
+          placeholder="Email"
           value={formData.email}
           onChange={handleChange}
           required
@@ -49,14 +77,15 @@ const Contact = () => {
           required
         />
         <button type="submit" className="send-button">Send Message</button>
+        
       </form>
       <div className="social-links">
-        <a href="https://www.linkedin.com/in/jimmy-nguyen0/" target="_blank" rel="noopener noreferrer">
-          LinkedIn
+        <a href="https://www.linkedin.com/in/jimmy-nguyen0/" target="_blank" className="linkedin-link" rel="noopener noreferrer">
+          <FaLinkedin className="linkedin-icon" />
         </a>
-
       </div>
     </section>
+    </>
   );
 };
 

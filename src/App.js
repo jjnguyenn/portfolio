@@ -5,7 +5,12 @@ import Resume from './components/Resume';
 import JobBackground from './components/JobBackground';
 import Contact from './components/Contact';
 import Projects from './components/Projects';
-import { FaSun, FaMoon } from 'react-icons/fa';
+import { FaMoon } from 'react-icons/fa';
+import Sidebar from './components/Sidebar';
+import { LuSun } from "react-icons/lu";
+
+
+
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -27,45 +32,47 @@ function App() {
 
   return (
     <div className={`App ${darkMode ? "dark" : "light"}`}>
-      <header className="App-header">
-        <h1>My Portfolio</h1>
 
-        {/* Toggle Button for Dark/Light Mode */}
-        <button className="mode-toggle-btn" onClick={toggleDarkMode}>
-          {darkMode ? <FaMoon /> : <FaSun />} {/* Display Moon for Dark mode and Sun for Light mode */}
-        </button>
-
-        <nav>
+<nav className={`navbar ${darkMode ? "dark" : "light"}`}>
           <ul>
             <li><a href="#about">About Me</a></li>
-            <li><a href="#resume">Resume</a></li>
             <li><a href="#job-background">Job Background</a></li>
-            <li><a href="#contact">Contact</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#resume">Resume</a></li>
+            <li><a href="#contact">Contact</a></li>
+         
           </ul>
+          <div className="toggle-switch" onClick={toggleDarkMode}>
+  <div className={`slider ${darkMode ? "dark" : "light"}`}>
+    {darkMode ? <FaMoon className="icon moon" /> : <LuSun className="icon sun" />}
+  </div>
+</div>
         </nav>
-      </header>
+      
+            <Sidebar darkMode={darkMode} toggleDarkMode={toggleDarkMode} /> 
+
 
       <section id="about">
         <AboutMe />
+      </section>
+
+      <section id="job-background">
+        <JobBackground />
+      </section>
+  
+      <section id="projects">
+        <Projects />
       </section>
 
       <section id="resume">
         <Resume />
       </section>
 
-      <section id="job-background">
-        <JobBackground />
-      </section>
-
       <section id="contact">
         <Contact />
       </section>
 
-      <section id="projects">
-        <Projects />
-      </section>
-
+  
  
     </div>
   );
