@@ -6,14 +6,13 @@ import JobBackground from './components/JobBackground';
 import Contact from './components/Contact';
 import Projects from './components/Projects';
 import { FaMoon } from 'react-icons/fa';
-import Sidebar from './components/Sidebar';
 import { LuSun } from "react-icons/lu";
-
-
-
+import { FaGithub } from "react-icons/fa";
+import { DiRuby } from "react-icons/di";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("darkMode");
@@ -30,26 +29,35 @@ function App() {
     });
   };
 
+  // Function to open the contact modal
+  const openContactModal = () => {
+    setShowContactModal(true);
+  };
+
+  // Function to close the contact modal
+  const closeContactModal = () => {
+    setShowContactModal(false);
+  };
+
   return (
     <div className={`App ${darkMode ? "dark" : "light"}`}>
-
-<nav className={`navbar ${darkMode ? "dark" : "light"}`}>
-          <ul>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#job-background">Job Background</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#resume">Resume</a></li>
-            <li><a href="#contact">Contact</a></li>
-         
-          </ul>
+      <nav className={`navbar ${darkMode ? "dark" : "light"}`}>
+        <div className="navbar-container">
+          <a href="#about" className="logo">:)</a>
+          <div className="navbar-links">
+            <a href="#about">About Me</a>
+            <a href="#job-background">Background</a>
+            <a href="#projects">Projects</a>
+            <a href="#resume">Resume</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); openContactModal(); }}>Contact</a>
+          </div>
           <div className="toggle-switch" onClick={toggleDarkMode}>
-  <div className={`slider ${darkMode ? "dark" : "light"}`}>
-    {darkMode ? <FaMoon className="icon moon" /> : <LuSun className="icon sun" />}
-  </div>
-</div>
-        </nav>
-      
-            <Sidebar darkMode={darkMode} toggleDarkMode={toggleDarkMode} /> 
+            <div className={`slider ${darkMode ? "dark" : "light"}`}>
+              {darkMode ? <FaMoon className="icon moon" /> : <LuSun className="icon sun" />}
+            </div>
+          </div>
+        </div>
+      </nav>
 
 
       <section id="about">
@@ -59,7 +67,7 @@ function App() {
       <section id="job-background">
         <JobBackground />
       </section>
-  
+
       <section id="projects">
         <Projects />
       </section>
@@ -68,12 +76,9 @@ function App() {
         <Resume />
       </section>
 
-      <section id="contact">
-        <Contact />
-      </section>
-
-  
- 
+      {showContactModal && (
+        <Contact closeModal={closeContactModal} />
+      )}
     </div>
   );
 }
