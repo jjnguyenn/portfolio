@@ -4,3 +4,5 @@ Welcome to my portfolio! This website was built with React, HTML, and CSS entire
 The site is hosted by GitHub. You can view the site here.
 
 https://jjnguyenn.github.io/portfolio/
+V2 portfolio below
+https://jimmynguwen.vercel.app
